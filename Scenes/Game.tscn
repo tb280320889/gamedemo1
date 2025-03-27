@@ -1,0 +1,133 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcjkx0rjn3083"]
+
+[ext_resource type="Texture2D" uid="uid://cmuqj13g868fk" path="res://AssetBundle/Sprites/ForestBackground.png" id="1_iukft"]
+[ext_resource type="Script" uid="uid://7r14osrlfmkc" path="res://scripts/GameManager.gd" id="1_kldst"]
+[ext_resource type="PackedScene" uid="uid://dlcy5lblrl3fb" path="res://Scenes/player.tscn" id="2_gl6un"]
+[ext_resource type="PackedScene" uid="uid://bxsijsmmeykmx" path="res://Scenes/Slime.tscn" id="3_j5yw3"]
+[ext_resource type="FontFile" uid="uid://bftt3bv0hh51w" path="res://AssetBundle/Uranus_Pixel_11Px.ttf" id="5_b2bpf"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gl6un"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spawn_timer", "score_label", "game_over_label")]
+y_sort_enabled = true
+script = ExtResource("1_kldst")
+slime_scene = ExtResource("3_j5yw3")
+spawn_timer = NodePath("Timer")
+score_label = NodePath("CanvasLayer/Label")
+game_over_label = NodePath("CanvasLayer/Game Over Label")
+
+[node name="BG1" type="Sprite2D" parent="."]
+position = Vector2(-48, 7)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="BG2" type="Sprite2D" parent="."]
+position = Vector2(192, 6)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+position = Vector2(71, 6)
+offset = Vector2(0, 0.06)
+zoom = Vector2(2.405, 2.325)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_gl6un")]
+position = Vector2(-139, 82)
+
+[node name="Boundary" type="Node2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Boundary"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D"]
+position = Vector2(-20, 143)
+shape = SubResource("WorldBoundaryShape2D_gl6un")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Boundary"]
+position = Vector2(-25, 18)
+rotation = 1.57079
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D2"]
+position = Vector2(-20, 143)
+shape = SubResource("WorldBoundaryShape2D_gl6un")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Boundary"]
+position = Vector2(-38, 11)
+rotation = 3.14159
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D3"]
+position = Vector2(-57.9999, -32.0003)
+shape = SubResource("WorldBoundaryShape2D_gl6un")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Boundary"]
+position = Vector2(166, -33)
+rotation = -1.5708
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D4"]
+position = Vector2(-20, 143)
+shape = SubResource("WorldBoundaryShape2D_gl6un")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.996
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 190.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("5_b2bpf")
+theme_override_font_sizes/font_size = 48
+text = "score : 0"
+
+[node name="Game Over Label" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -24.5
+offset_right = 114.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.607843, 0, 1)
+theme_override_constants/outline_size = 60
+theme_override_fonts/font = ExtResource("5_b2bpf")
+theme_override_font_sizes/font_size = 120
+text = "Game Over!"
+
+[node name="Game Over Label2" type="Label" parent="CanvasLayer/Game Over Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = 72.0
+offset_right = 398.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+theme_override_colors/font_color = Color(0.894922, 0.894922, 0.894922, 1)
+theme_override_constants/outline_size = 60
+theme_override_fonts/font = ExtResource("5_b2bpf")
+theme_override_font_sizes/font_size = 45
+text = "Game By Sherlocked"
+
+[connection signal="timeout" from="Timer" to="." method="_spawn_slime"]
