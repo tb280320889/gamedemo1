@@ -12,6 +12,12 @@ var is_game_over : bool = false
 
 @export var bullet_scene:PackedScene 
 
+func _process(delta: float) -> void:
+	if velocity == Vector2.ZERO or is_game_over:
+		$RunningSound.stop()
+	elif not $RunningSound.playing:
+		$RunningSound.play()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -32,6 +38,7 @@ func game_over():
 		is_game_over = true
 		animator.play("lose")
 		get_tree().current_scene.show_game_over()
+		$GameOVerSound.play()
 		await get_tree().create_timer(3).timeout
 		get_tree().reload_current_scene()
 	
@@ -40,6 +47,8 @@ func game_over():
 func _on_fire() -> void:
 	if velocity != Vector2.ZERO || is_game_over:
 		return
+		
+	$FireSound.play()
 	var bullet_node = bullet_scene.instantiate()
 	var bullet_offset = Vector2(12,2)
 	
