@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	spawn_timer.wait_time = clamp(spawn_timer.wait_time,1,3)
 	score_label.text = "Score: " + str(score)
 
-#test gitbutler
+#test gitbutler and git again
 func _spawn_slime() -> void:
 	var slime_node = slime_scene.instantiate()
 	slime_node.position = Vector2(260,randf_range(50,115))
