@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 
 Bgm="*res://Scenes/Bgm.tscn"
 
+[display]
+
+window/size/mode=4
+window/stretch/mode="canvas_items"
+
 [input]
 
 left={
