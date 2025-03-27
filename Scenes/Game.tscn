@@ -130,4 +130,6 @@ theme_override_fonts/font = ExtResource("5_b2bpf")
 theme_override_font_sizes/font_size = 45
 text = "Game By Sherlocked"
 
+[node name="Player2" type="CharacterBody2D" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_spawn_slime"]
