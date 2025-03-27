@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	score_label.text = "Score: " + str(score)
 
 #test gitbutler and git again
+#test git tag and release
 func _spawn_slime() -> void:
 	var slime_node = slime_scene.instantiate()
 	slime_node.position = Vector2(260,randf_range(50,115))
