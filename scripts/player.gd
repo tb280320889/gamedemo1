@@ -39,8 +39,9 @@ func game_over():
 		animator.play("lose")
 		get_tree().current_scene.show_game_over()
 		$GameOVerSound.play()
-		await get_tree().create_timer(3).timeout
-		get_tree().reload_current_scene()
+		
+		#等待3秒 重启游戏
+		$RestartTimer.start()
 	
 
 
@@ -54,3 +55,7 @@ func _on_fire() -> void:
 	
 	bullet_node.position = position +bullet_offset
 	get_tree().current_scene.add_child(bullet_node)
+
+
+func _reload_scene() -> void:
+	get_tree().reload_current_scene()
